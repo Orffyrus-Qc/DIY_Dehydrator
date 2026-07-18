@@ -18,7 +18,7 @@
 
 ---
 
-# 🚨🚨🚨 YOU HAVE ENTERED A FALLING COW ZONE 🚨🚨🚨
+# 🚨 YOU HAVE ENTERED A FALLING COW ZONE 🚨
 
 <!-- Same-size diamonds, white exterior removed, dark plate (GitHub page is white so raw transparency still looked white) -->
 <p align="center">
