@@ -1,0 +1,70 @@
+- type:: mode
+- created:: 2026-07-18
+- tags:: #meat #food-safety #profiles #mode
+- status:: design
+-
+- ## Purpose
+- **Meat mode** is a profile category for jerky and other meat products where the chamber (and product) must stay **above a minimum temperature** for the whole active dry session so the food does not sit in the bacterial danger zone long enough to spoil.
+- Automation optimizes drying **within** food-safety constraints; it does **not** replace safe prep, curing, or local regulatory guidance.
+-
+- ## Core rule
+- While session is active in meat mode and state ∈ {`PREHEAT`, `RUNNING`, `FINISHING` sub-phases that still allow heat}:
+	- `T_control` (filtered chamber air, primary SHT) **must stay ≥ `T_meat_min_c`** except for short, allowed transients.
+	- If temperature falls below the floor for longer than `meat_floor_grace_s`, treat as **food-safety fault path** (not a soft ignore).
+-
+- ## Default parameters (starting points — validate for your product)
+- | param | default | meaning |
+- |---|---:|---|
+- | `food_category` | `meat` | Enables meat mode policies |
+- | `T_meat_min_c` | **63** | Soft floor during dry (≈145 °F class guidance) |
+- | `T_meat_kill_c` | **71** | Optional pre-dry / early hold target (≈160 °F class step) |
+- | `meat_kill_hold_min` | **10** | Minutes at/above kill temp if kill-step enabled |
+- | `meat_floor_grace_s` | **90** | Allowed dip below floor before escalate |
+- | `meat_floor_warn_s` | **30** | WARN if below floor this long |
+- | `setpoint_c` | **65–70** | Typical jerky dry setpoint (must be **>** floor) |
+- | `early_rh_exit` | **false** | Do not finish early on RH alone |
+- | `rh_end` | **15** | Stricter end RH when RH is used as secondary check |
+- | `t_min` / `t_max` | profile | Prefer conservative time bounds |
+-
+- ## Session policy
+- ### Start guards
+- - Refuse **Start** if profile meat and `setpoint_c < T_meat_min_c + 1`.
+- - Refuse Start if sensors invalid ([[Safety Interlocks]]).
+- - UI shows meat banner: “Meat mode — minimum temp enforced”.
+-
+- ### PREHEAT / kill step (optional, profile flag `require_kill_step`)
+- - Ramp to max(`setpoint_c`, `T_meat_kill_c`).
+- - Hold ≥ `T_meat_kill_c` for `meat_kill_hold_min` before entering normal dry at `setpoint_c`.
+- - If kill step cannot be reached by `t_kill_timeout` → `WARN` then escalate to CRITICAL if still cold (underpowered heater / open door / sensor).
+-
+- ### RUNNING
+- - PID setpoint is always **≥ `T_meat_min_c`**.
+- - User cannot lower live setpoint below floor (API returns error `MEAT_FLOOR`).
+- - Door open: heater off per global policy, but **timer of meat-unsafe cold exposure** accumulates; long door-open in meat mode → stronger WARN / block resume until re-preheat above floor.
+-
+- ### Temperature floor enforcement (1 Hz)
+- 1. `T < T_meat_min_c` for ≥ `meat_floor_warn_s` → warning `MEAT_TEMP_LOW` (WARN), force heater toward max allowed duty, reduce fan if fan is cooling chamber too hard.
+- 2. Still low for ≥ `meat_floor_grace_s` → `MEAT_TEMP_UNSAFE` (CRITICAL) → state `FAULT`, heaters follow safe path, **session marked food-safety-aborted** (do not auto-recommend “resume dry as if OK”).
+- 3. After any prolonged cold excursion, require re-PREHEAT above floor before continuing dry.
+-
+- ### Finish path for meat
+- - Prefer **time + temp held** + RH secondary; disable aggressive early RH exit.
+- - Still may enter refined [[Finishing Mode]] for moisture bounce check, but:
+	- During **rest**, chamber may cool — **cap rest duration** in meat mode (`finish_rest_max_s` shorter) and **re-heat above floor** before long probe if `T` approaches floor.
+	- If rest would violate floor, use **warm rest**: heater holds `T_meat_min_c` (not full off) while external exhaust is off / low; then internal-fan probe.
+-
+- ## Profile rows (meat family)
+- See [[Food Profiles]] — `jerky` and any `meat_*` clones set `food_category: meat` and the parameters above.
+-
+- ## UI / telemetry
+- Dashboard badge: `MEAT`.
+- Extra fields: `t_meat_min_c`, `meat_floor_ok` (bool), `seconds_below_floor` (session).
+- Recommendation examples: “Setpoint only 1 °C above floor — raise 3 °C for margin”.
+- Operator-facing copy lives on web UI **Info** page — [[UI Info Page]] (danger zone, floor, kill step, why 63 °C, disclaimer).
+- Deep-link from meat banner: `#/info/meat`.
+-
+- ## Safety disclaimer
+- Minimum air temperature is a **proxy**, not a guarantee of internal product temperature or pathogen kill. User remains responsible for meat handling, thickness, curing, and safe storage. When in doubt, use higher kill-step and longer `t_min`. Same disclaimer must appear on [[UI Info Page]].
+-
+- ## Related
+- [[Food Profiles]] · [[Safety Interlocks]] · [[Control State Machine]] · [[Finishing Mode]] · [[Warnings System]] · [[PID and Climate Control]] · [[UI Info Page]] · [[Web AP Interface]]

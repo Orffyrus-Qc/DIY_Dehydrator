@@ -1,0 +1,38 @@
+- type:: software
+- created:: 2026-07-18
+- tags:: #recommendations #automation #ai-lite
+-
+- ## Philosophy
+- Not a cloud ML model — **rule + history heuristics** that feel smart and stay explainable.
+- Every recommendation: title, why, suggested action, confidence, one-tap Apply.
+-
+- ## Live recommendations (during run)
+- If overshoot > 2 °C thrice → “Lower setpoint 2 °C or reduce duty_max” / auto-suggest PID gentler ramp.
+- If RH falling fast and T low → “You can lower temp to preserve quality” (**skip if meat mode** — do not suggest below floor).
+- If RH stuck high → “Increase fan 15%” or “Rotate trays / reduce load”.
+- If gradient high → “Raise fan; check blocked vent”.
+- If energy high vs profile baseline → “Chamber leak or ambient cold — check seal”.
+- Meat: setpoint within 2 °C of floor → “Raise setpoint 3 °C for safety margin under door opens”.
+- Meat: repeated `MEAT_TEMP_LOW` → “Check door seal / heater power / reduce fan”.
+- Finishing: large RH bounce → “Core still wet — continuing dry; consider thinner slices next run”.
+- Finishing: ready after 0 bounce cycles → “Load was even — good prep”.
+-
+- ## Pre-start recommendations
+- Based on last session same profile: “Last run DONE in 6.2 h — ETA updated”.
+- Ambient cold (if sense) → “Expect +15% time”.
+- Too soon after last run high humidity ambient → extend t_min slightly.
+-
+- ## Post-run recommendations
+- If finished on MAX_TIME with RH still high → “Slice thinner next time / more airflow”.
+- If finished very early → “Reduce t_max or lower temp for better quality”.
+- Suggest saving custom profile if user overrides often.
+-
+- ## Apply behavior
+- Apply writes temporary overrides for current session (or saves to profile if user opts).
+- Dismiss suppresses code for session.
+-
+- ## Extension point
+- Later: tiny on-device regression (duration ~ load proxy) — [[Future Upgrades]].
+-
+- ## Related
+- [[Stats Telemetry Logging]] · [[Food Profiles]] · [[Web AP Interface]]

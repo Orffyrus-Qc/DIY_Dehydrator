@@ -1,0 +1,8 @@
+{:meta/version 1
+ :preferred-workflow :now
+ :hidden []
+ :default-templates
+ {:journals ""}
+ :graph/forcesettings {:link-dist 60
+ :charge-strength -700}
+}

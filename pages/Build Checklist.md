@@ -1,0 +1,38 @@
+- type:: checklist
+- created:: 2026-07-18
+- status:: active
+- tags:: #checklist #build
+-
+- ## Mechanical
+- TODO Choose chassis path A/B — [[Mechanical Enclosure]]
+- TODO Mount trays, baffles, door magnet
+- TODO Mount sensors mid-air + tray + exhaust
+- TODO Electronics bay cool zone
+-
+- ## Electrical
+- TODO Fuse + inlet + earth
+- TODO Thermal fuse series heater
+- TODO SSR + heatsink wiring
+- TODO LV PSU 5 V / 12 V
+- TODO MOSFET fan PWM
+- TODO Verify with meter before first heat
+-
+- ## Firmware
+- TODO PlatformIO project scaffold — [[Firmware Architecture]]
+- TODO Sensors + actuators modules
+- TODO State machine + PID
+- TODO LittleFS UI upload
+- TODO AP + REST + WebSocket
+- TODO Warnings + recommendations
+- TODO Session logging
+-
+- ## Commissioning
+- TODO [[Calibration]] offsets
+- TODO [[Test Plan]] phases A→E
+- TODO First real food run + journal results
+-
+- ## Done definition
+- Unattended apple run completes with DONE, logs saved, no CRITICAL, UI usable on phone.
+-
+- ## Related
+- [[00 Overview]] · [[Test Plan]] · [[BOM Parts List]]

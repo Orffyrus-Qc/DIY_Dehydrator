@@ -1,0 +1,65 @@
+- type:: index
+- created:: 2026-07-18
+- tags:: #diagrams #assets #images
+-
+- ## Diagrams in this graph
+- Technical figures generated for the DIY ESP32 dehydrator notes (PNG in `assets/`).
+-
+- ## Gallery
+- ### System architecture
+- ![System architecture](../assets/architecture.png)
+- Page: [[01 Architecture]] · [[00 Overview]]
+-
+- ### Automation stack
+- ![Automation stack](../assets/automation_stack.png)
+- Page: [[Automation Goals]]
+-
+- ### Chamber airflow
+- ![Airflow layout](../assets/airflow_layout.png)
+- Page: [[Mechanical Enclosure]]
+-
+- ### Electrical overview
+- ![Electrical overview](../assets/electrical_overview.png)
+- Page: [[Electrical Wiring]]
+-
+- ### Control state machine
+- ![State machine](../assets/state_machine.png)
+- Page: [[Control State Machine]]
+-
+- ### Web AP UI mockup
+- ![Web UI mockup](../assets/web_ui_mockup.png)
+- Page: [[Web AP Interface]]
+-
+- ### ESP32 pin map
+- ![Pin map](../assets/pin_map.png)
+- Page: [[Pin Map ESP32]]
+-
+- ## How images work in Logseq
+- Files live in `D:\Projects\DIY_Dehydrator\assets\`
+- Markdown: `![alt text](../assets/filename.png)`
+- Re-generate diagrams: run `python assets\_gen_diagrams.py` from the graph folder (or full path).
+-
+- ## When to add more images
+- Photos of your real build (wiring, tray layout) — drop into `assets/` and embed the same way.
+- Screenshots of the live web UI once firmware exists.
+- Optional: hand sketches of custom enclosure dimensions.
+-
+- ## Internet source photos (Wikimedia Commons)
+- Offline copies in `assets/web/` — full attribution on [[Image Credits]].
+-
+- ### Hardware
+- ![ESP32 WROOM](../assets/web/esp32_wroom_devboard.jpg){:height 220}
+- ![ESP32 Dev Board](../assets/web/esp32_dev_board.jpg){:height 220}
+- ![SSR](../assets/web/ssr_solid_state_relay.jpg){:height 200}
+- ![SSR LED](../assets/web/ssr_with_led.jpg){:height 200}
+- ![MOSFET](../assets/web/mosfet_to220.jpg){:height 200}
+- ![Axial fan](../assets/web/axial_fan.jpg){:height 200}
+- ![DHT22](../assets/web/dht22_sensor.jpg){:height 200}
+- ![DS18B20](../assets/web/ds18b20_sensor.jpg){:height 200}
+- ![Breadboard](../assets/web/breadboard.jpg){:height 200}
+-
+- ### Food / mechanical
+- ![Food dehydrator](../assets/web/food_dehydrator.jpg){:height 240}
+- ![Dried fruit](../assets/web/dried_fruit.jpg){:height 220}
+- ![Dried apples](../assets/web/dried_apple_slices.jpg){:height 220}
+- ![Sliced apple](../assets/web/sliced_red_apple.jpg){:height 220}

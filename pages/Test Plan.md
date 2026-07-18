@@ -1,0 +1,46 @@
+- type:: procedure
+- created:: 2026-07-18
+- tags:: #test #qa
+-
+- ## Phase A — dry bench (no mains heater)
+- Flash firmware; AP joins; UI loads offline assets.
+- Simulate sensors if needed; GPIO SSR pin toggles LED stand-in.
+- Door switch events → UI + heater pin off.
+- WebSocket telemetry rate OK.
+-
+- ## Phase B — mains heater supervised
+- Short supervised runs empty chamber.
+- Verify thermal fuse path still continuous.
+- Ramp PREHEAT → RUNNING; emergency stop.
+- OVERTEMP test with temporary low T_max_abs.
+-
+- ## Phase C — water load test
+- Trays with damp towels as moisture proxy.
+- Confirm RH falls; fan boost rules; finish **entry** then [[Finishing Mode]]:
+	- REST: heater/fan off (or trickle).
+	- PROBE: internal fan only; inject humidity (damp cloth near sensor) → must return to RUNNING.
+	- Dry proxy fully → probe stable → COOLDOWN.
+-
+- ## Phase C2 — meat mode (bench)
+- Profile `jerky`; set temporary high `T_meat_min_c` near ambient+5 to force floor events safely **without food**.
+- Confirm WARN `MEAT_TEMP_LOW` then CRITICAL path; setpoint below floor rejected by API.
+- Confirm warm-rest holds floor during finishing when enabled.
+- Real meat trials only after Phase B pass + user food-safety checklist.
+-
+- ## Phase D — food trial
+- Apple profile real food; weigh samples optional.
+- Compare auto-finish (rest+probe) vs manual judgment.
+- Optional jerky trial under meat mode after dry runs.
+- Review recommendations usefulness.
+-
+- ## Phase E — fault injection
+- Unplug SHT → FAULT.
+- Open door mid-run → pause heat (meat: cold-exposure + re-preheat policy).
+- Kill power → RECOVER policy.
+- Force `finish_max_cycles` → WARN + COOLDOWN.
+-
+- ## Pass criteria
+- See [[00 Overview]] success criteria + no unsafe heater-on conditions.
+-
+- ## Related
+- [[Build Checklist]] · [[Failure Modes]]

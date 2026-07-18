@@ -1,0 +1,43 @@
+- type:: requirements
+- created:: 2026-07-18
+- tags:: #automation #requirements
+-
+- ## “Most automated possible” means
+-
+- ![Automation stack layers](../assets/automation_stack.png)
+- Minimal user steps per run: **select profile → Start** (or **Resume last**).
+- Automatic stage machine: Preheat → Dry → **Finish (rest → fan probe)** → Cool → Done (or back to Dry if core still wet).
+- Automatic airflow management when RH rises or temp overshoots.
+- Automatic session end (criteria + max time + finishing confirmation).
+- Automatic safe-state on any fault.
+- **Meat mode**: automatic minimum-temperature enforcement so meat does not spoil cold ([[Meat Mode]]).
+- Automatic logging of stats for next-run recommendations.
+-
+- ## User interactions (target ≤ 3 taps)
+- Open `http://192.168.4.1` on phone (auto-join AP if saved).
+- Pick food profile (or “Custom”) — meat profiles show floor temp badge.
+- Press **Start**.
+- Optional: pause / adjust setpoint / force fan / force ready|continue dry / acknowledge warning.
+-
+- ## Automation features checklist
+- DONE design: profile library with defaults ([[Food Profiles]]).
+- DONE design: PID + anti-windup + duty limits ([[PID and Climate Control]]).
+- DONE design: RH-based finish **entry** ([[Control State Machine]]).
+- DONE design: **Finishing mode** rest + internal-fan RH bounce decision ([[Finishing Mode]]).
+- DONE design: **Meat mode** min-temp floor + optional kill-step ([[Meat Mode]]).
+- DONE design: warning engine with severity ([[Warnings System]]).
+- DONE design: recommendation engine using history + live deltas ([[Recommendations Engine]]).
+- DONE design: door-open pause heater.
+- DONE design: brownout / sensor-fail failsafe.
+- TODO implement: firmware modules (see [[Build Checklist]]).
+-
+- ## What stays manual (by design)
+- Loading / unloading food (hygiene, inspection).
+- First-time mechanical assembly and mains wiring.
+- Calibrating sensors once ([[Calibration]]).
+- Acknowledging critical alarms after physical check.
+-
+- ## KPI targets
+- Unattended run completion rate > 95% without critical alarm.
+- False-positive critical alarms < 1 / 20 sessions after calibration.
+- Energy waste: avoid >10 min heater-on with door open.

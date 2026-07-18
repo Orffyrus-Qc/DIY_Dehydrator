@@ -1,0 +1,32 @@
+- type:: credits
+- created:: 2026-07-18
+- tags:: #images #credits #commons
+-
+- ## Source photos from the internet
+- Downloaded from **Wikimedia Commons** for offline use in this Logseq graph.
+- Stored under `assets/web/`. Always keep attribution for CC BY / BY-SA works.
+-
+- ## Credits table
+- | File | License | Source |
+- |---|---|---|
+- | `esp32_wroom_devboard.jpg` | CC0 | [File:ESP32_Espressif_ESP-WROOM-32_Dev_Board_(2).jpg](https://commons.wikimedia.org/wiki/File:ESP32_Espressif_ESP-WROOM-32_Dev_Board_(2).jpg) |
+- | `esp32_dev_board.jpg` | CC BY-SA 4.0 | [File:ESP32_Dev_Board.jpg](https://commons.wikimedia.org/wiki/File:ESP32_Dev_Board.jpg) |
+- | `ssr_solid_state_relay.jpg` | Public domain | [File:Solid_state_relay.jpg](https://commons.wikimedia.org/wiki/File:Solid_state_relay.jpg) |
+- | `ssr_with_led.jpg` | CC BY-SA 4.0 | [File:SSR_solid_state_relay.jpg](https://commons.wikimedia.org/wiki/File:SSR_solid_state_relay.jpg) |
+- | `axial_fan.jpg` | Copyrighted free use | [File:Axial_fan.jpg](https://commons.wikimedia.org/wiki/File:Axial_fan.jpg) |
+- | `dried_fruit.jpg` | CC BY-SA 4.0 | [File:Dried_fruit.jpg](https://commons.wikimedia.org/wiki/File:Dried_fruit.jpg) |
+- | `onewire_protocol.png` | Public domain | [File:1-Wire-Protocol.png](https://commons.wikimedia.org/wiki/File:1-Wire-Protocol.png) |
+- | `dht22_sensor.jpg` | CC BY-SA 4.0 | [File:AM2302 (DHT22) digital temperature and humidity sensor module.jpg](https://commons.wikimedia.org/wiki/File:AM2302_(DHT22)_digital_temperature_and_humidity_sensor_module.jpg) |
+- | `food_dehydrator.jpg` | CC BY-SA 3.0 | [File:Tomato in food dehydrator.jpg](https://commons.wikimedia.org/wiki/File:Tomato_in_food_dehydrator.jpg) |
+- | `mosfet_to220.jpg` | CC BY-SA 4.0 | [File:MOSFET transistors.jpg](https://commons.wikimedia.org/wiki/File:MOSFET_transistors.jpg) |
+- | `ds18b20_sensor.jpg` | CC BY-SA 4.0 | [File:Sensor DS18B20.jpg](https://commons.wikimedia.org/wiki/File:Sensor_DS18B20.jpg) |
+- | `ds18b20_sparkfun.jpg` | CC BY 2.0 | [File:SparkFun DS18B20 1.jpg](https://commons.wikimedia.org/wiki/File:SparkFun_DS18B20_1.jpg) |
+- | `dried_apple_slices.jpg` | CC0 | [File:Dried apple slices.jpg](https://commons.wikimedia.org/wiki/File:Dried_apple_slices.jpg) |
+- | `sliced_red_apple.jpg` | CC BY-SA 4.0 | [File:Liat Portal for Foodie Disorder - Sliced Red Apple.jpg](https://commons.wikimedia.org/wiki/File:Liat_Portal_for_Foodie_Disorder_-_Sliced_Red_Apple.jpg) |
+- | `breadboard.jpg` | CC0 | [File:Breadboard with circuit.jpg](https://commons.wikimedia.org/wiki/File:Breadboard_with_circuit.jpg) |
+- | `breadboard_electronics.jpg` | CC0 | [File:Breadboard in electronics.jpg](https://commons.wikimedia.org/wiki/File:Breadboard_in_electronics.jpg) |
+- 
+- ## Notes
+- Generated diagrams (architecture, pin map, etc.) remain in `assets/*.png` (local code-rendered).
+- Photos: real-world references for hardware, food, and mechanical form factor.
+- Re-download script data: `assets/web/_credits.json`

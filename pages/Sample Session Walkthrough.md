@@ -1,0 +1,36 @@
+- type:: example
+- created:: 2026-07-18
+- tags:: #example #session
+-
+- ## Scenario
+-
+- ### What “done” looks like (example)
+- ![Dried apple slices](../assets/web/dried_apple_slices.jpg){:height 300}
+- Prep reference:
+- ![Sliced red apple](../assets/web/sliced_red_apple.jpg){:height 260}
+- Credits: [[Image Credits]]
+- 4 trays apple slices, 4 mm, room 22 °C, profile `apple`.
+-
+- ## Automated timeline (illustrative)
+- t=0 Start → PREHEAT, fan 50%, heater ramps, UI ETA ~8 h.
+- t=25 min Tair 57 °C band → RUNNING.
+- t=1 h RH 78%→55%, recommendation: none.
+- t=3 h RH slope flattens mid → WARN `RH_NOT_FALLING`? no — still −2 %/h.
+- t=3.5 h gradient high tray3 → WARN `GRADIENT_HIGH` + recommend fan +15% → user Apply or auto if enabled.
+- t=6.5 h RH 22% hold 20 min → FINISH_REST (heater/fan off ~15 min).
+- t=6.75 h FINISH_PROBE internal fan only → `drh` +1.2% (below bounce) → COOLDOWN.
+- t=7 h DONE beep, session saved, energy ~1.8 kWh est.
+-
+- ## Meat mode sketch (jerky)
+- Profile `jerky`, floor 63 °C, setpoint 68 °C, kill-step optional.
+- PREHEAT to band → RUNNING with floor monitor.
+- Door open 2 min → `MEAT_TEMP_LOW` if T dips; re-PREHEAT before resume.
+- First finish entry → warm rest if needed → probe; RH bounce +5% → back to RUNNING once → second probe stable → COOLDOWN → DONE.
+-
+- ## What the system logged
+- Telemetry ring + `/sessions/20260718-1400.jsonl`
+- Warnings: 1× GRADIENT_HIGH acked.
+- Recommendation applied: fan_bias 0.7→0.85 for rest of session.
+-
+- ## Related
+- [[Stats Telemetry Logging]] · [[Control State Machine]] · [[Food Profiles]]

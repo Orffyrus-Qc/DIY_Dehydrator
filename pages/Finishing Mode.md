@@ -1,0 +1,89 @@
+- type:: mode
+- created:: 2026-07-18
+- tags:: #finishing #humidity #automation #mode
+- status:: design
+-
+- ## Purpose
+- **Finishing mode** decides whether the product is actually dry at the **center**, not only on the surface.
+- Surface can read dry while the core still holds moisture. The fix is:
+- 1. **Rest** the load so internal moisture migrates outward.
+- 2. Run **internal fan only** (heater off) and **watch humidity**.
+- 3. If humidity rises → moisture still leaving the product → **continue dehydration**.
+- 4. If humidity stays low / flat → **ready** → cooldown / done.
+-
+- ## When we enter finishing
+- From `RUNNING` when baseline finish criteria fire ([[Control State Machine]]):
+- RH below `rh_end` for `rh_hold_min`, **or** RH slope ≈ 0 after `t_min`, **or** `t_max` force path (with `MAX_TIME` warn).
+- Meat profiles: only after conservative time/temp rules; see [[Meat Mode]].
+-
+- ## Sub-states (under parent `FINISHING`)
+-
+- ### `FINISH_REST` — equalize / rest
+- - **Heater: OFF** (default produce / fruit / herb).
+- - **Fans: OFF** (or trickle ≤ `finish_rest_fan_max` only if needed for sensor wash — default **0**).
+- - Goal: no forced drying; let heat/moisture gradient inside slices relax so core water moves to the surface / air boundary layer.
+- - Duration: `finish_rest_min_s` … `finish_rest_max_s` (defaults **10–20 min**; profile override).
+- - Exit early to probe only after `finish_rest_min_s`.
+- - Log baseline: `rh_rest_start`, `t_rest_start`.
+-
+- ### Meat-mode rest exception
+- - If [[Meat Mode]] active and `T` would drop under `T_meat_min_c`, use **warm rest**:
+	- Hold chamber at ≈ `T_meat_min_c` with minimal heater.
+	- Keep **exhaust / high airflow off**; prefer still air or very low circulation so the rest still equalizes moisture.
+	- Cap rest length; never sit long in the danger zone.
+-
+- ### `FINISH_PROBE` — internal fan only + RH decision
+- - **Heater: OFF** (always in probe; meat: if T already below floor, skip long probe and re-enter dry instead of cold soak).
+- - **Internal / chamber circulation fan: ON** at `finish_probe_fan_pct` (default **40–60%**).
+- - **Exhaust / external vent fan: OFF** if dual-fan; single-fan builds treat “internal only” as this fan at probe duty with vents left as-is.
+- - Sample RH at 1 Hz; compute:
+	- `rh_probe_baseline` = mean RH over first `probe_baseline_s` (e.g. 30–60 s after fan start)
+	- `rh_probe_peak` = max RH over probe window
+	- `drh` = `rh_probe_peak − rh_probe_baseline` (or vs end-of-rest RH)
+	- `rh_slope` over probe window
+-
+- ### Decision table
+- | Observation | Meaning | Next state |
+- |---|---|---|
+- | `drh ≥ rh_bounce_thresh` (default **3–5 %RH**) sustained | Core moisture released into air | → **`RUNNING`** (continue dry) |
+- | RH rising slope > `rh_slope_continue` for `probe_confirm_s` | Same | → **`RUNNING`** |
+- | `drh < rh_bounce_thresh` and slope ≈ 0 for full probe | Little free moisture left | → **`COOLDOWN`** (ready) |
+- | Probe timeout with ambiguous mid band | Optional second rest+probe once | → rest again **or** COOLDOWN if already past `t_max` |
+-
+- ## Continue-dry behavior after bounce
+- - Return to `RUNNING` with same profile setpoint.
+- - Optional **light dry** modifier for N minutes: slightly higher fan, same or −1 °C setpoint to avoid case-hardening — profile flag `finish_redry_style`.
+- - Increment `finish_cycle_count`; after `finish_max_cycles` (default **3**) force COOLDOWN with warn `FINISH_MAX_CYCLES` (avoid infinite rest loops).
+- - Extend effective session clock; still respect absolute `t_max_abs` safety stop.
+-
+- ## Parameters (profile + globals)
+- | param | default | notes |
+- |---|---:|---|
+- | `finish_rest_min_s` | 600 | 10 min minimum rest |
+- | `finish_rest_max_s` | 1200 | 20 min |
+- | `finish_probe_s` | 300 | 5 min probe window |
+- | `finish_probe_fan_pct` | 50 | internal fan only |
+- | `probe_baseline_s` | 45 | settle after fan starts |
+- | `rh_bounce_thresh` | 4 | %RH rise → continue dry |
+- | `rh_slope_continue` | 0.5 | %RH/min class threshold (tune) |
+- | `finish_max_cycles` | 3 | rest→probe loops max |
+- | `meat_warm_rest` | true | meat holds floor during rest |
+-
+- ## Actuator matrix
+- | sub-state | heater | internal fan | exhaust fan (if any) |
+- |---|---|---|---|
+- | FINISH_REST | off (or warm-rest hold) | off / trickle | off |
+- | FINISH_PROBE | off | **on** probe % | **off** |
+- | back to RUNNING | PID | profile curve | profile |
+- | COOLDOWN | off | high | on/high |
+-
+- ## UI / UX
+- - Stage label: `Finishing — resting…` then `Finishing — moisture check (fan only)`.
+- - Show live `drh` and plain language: “Humidity rose — continuing dry” / “Stable — ready for cool-down”.
+- - User can **Force ready** or **Force continue dry** from Session page.
+-
+- ## Why this is more automated
+- Classic RH threshold alone mistakes **surface-dry** for **done**. Rest + fan probe closes that loop without opening the door.
+-
+- ## Related
+- [[Control State Machine]] · [[Sensors]] · [[Actuators]] · [[PID and Climate Control]] · [[Food Profiles]] · [[Meat Mode]] · [[Recommendations Engine]]

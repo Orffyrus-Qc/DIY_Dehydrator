@@ -1,0 +1,51 @@
+- type:: reference
+- created:: 2026-07-18
+- tags:: #profiles #food #setpoints
+-
+- ## Notes
+-
+- ### Reference photos
+- ![Dried fruit mix](../assets/web/dried_fruit.jpg){:height 300}
+- ![Dried apple slices](../assets/web/dried_apple_slices.jpg){:height 280}
+- ![Fresh sliced red apple (prep)](../assets/web/sliced_red_apple.jpg){:height 280}
+- Credits: [[Image Credits]]
+- Temperatures are typical home-dehydrator ranges — validate for your food safety needs (especially meats).
+- Times are starting points; automation enters [[Finishing Mode]] when RH/time criteria met (may continue dry after rest+probe).
+-
+- ## Profile table
+- | id | name | cat | °C | fan_bias | t_min h | t_max h | rh_end % | notes |
+- |---|---|---|---:|---:|---:|---:|---:|---|
+- | apple | Apple slices | produce | 57 | 0.7 | 4 | 12 | 20 | 3–5 mm slices |
+- | banana | Banana chips | produce | 60 | 0.7 | 5 | 14 | 18 | pretreat optional |
+- | herb | Herbs | produce | 40 | 0.4 | 2 | 8 | 25 | low fan preserve oils |
+- | mushroom | Mushrooms | produce | 50 | 0.6 | 4 | 10 | 20 | even slices |
+- | tomato | Tomato | produce | 55 | 0.7 | 5 | 14 | 18 | seeds moisture |
+- | jerky | Jerky* | **meat** | 68 | 0.8 | 4 | 8 | 15 | *[[Meat Mode]] floor 63 °C |
+- | meat_strip | Meat strips* | **meat** | 70 | 0.85 | 5 | 10 | 14 | thicker strips; kill-step on |
+- | veg_mix | Mixed veg | produce | 52 | 0.65 | 4 | 12 | 20 | default catch-all |
+- | custom | Custom | user | user | user | user | user | user | free form |
+-
+- ## Categories / modes
+- `produce` — normal dry; heater-off rest in finishing.
+- `meat` — enables [[Meat Mode]]: `T_meat_min_c` (default 63), optional kill-step, no early RH exit, warm rest if needed.
+- `user` — inherits flags from clone source or explicit overrides.
+-
+- ## Meat profile fields (extra)
+- `T_meat_min_c`, `T_meat_kill_c`, `require_kill_step`, `meat_kill_hold_min`, `early_rh_exit=false`, `meat_warm_rest=true`.
+- Setpoint must stay **strictly above** floor (UI + API enforce).
+-
+- ## Finishing overrides (per profile)
+- `finish_rest_min_s`, `finish_probe_s`, `rh_bounce_thresh`, `finish_max_cycles` — see [[Finishing Mode]].
+- Herbs: shorter rest OK (thin leaves). Jerky/meat: longer `t_min` before first finish attempt; warm rest.
+-
+- ## Stage hints per profile
+- Herbs: longer PREHEAT gentle; lower fan.
+- Jerky / meat_*: stricter t_min; meat floor; kill-step optional; finishing may return to RUNNING if RH bounces.
+- Fruit: standard RH finish entry + rest/probe confirm.
+-
+- ## Storage in firmware
+- PROGMEM defaults + NVS user edits.
+- UI can clone profile → `custom_*` (preserve `food_category` unless user changes).
+-
+- ## Related
+- [[Control State Machine]] · [[Meat Mode]] · [[Finishing Mode]] · [[Recommendations Engine]] · [[Calibration]]

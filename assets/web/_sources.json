@@ -1,0 +1,98 @@
+﻿[
+    {
+        "Name":  "esp32_dev_board.jpg",
+        "Bytes":  0,
+        "Status":  "FAIL",
+        "Credit":  "ESP32 Espressif ESP-WROOM-32 Dev Board — CC0 (public domain dedication), Wikimedia Commons",
+        "Page":  "https://commons.wikimedia.org/wiki/File:ESP32_Espressif_ESP-WROOM-32_Dev_Board_(2).jpg",
+        "Url":  "https://upload.wikimedia.org/wikipedia/commons/8/8e/ESP32_Espressif_ESP-WROOM-32_Dev_Board_%282%29.jpg"
+    },
+    {
+        "Name":  "esp32_devkit.jpg",
+        "Bytes":  0,
+        "Status":  "FAIL",
+        "Credit":  "ESP32 Dev Board — CC BY-SA 4.0, Wikimedia Commons",
+        "Page":  "https://commons.wikimedia.org/wiki/File:ESP32_Dev_Board.jpg",
+        "Url":  "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ESP32_Dev_Board.jpg/1280px-ESP32_Dev_Board.jpg"
+    },
+    {
+        "Name":  "ssr_solid_state_relay.jpg",
+        "Bytes":  238554,
+        "Status":  "OK",
+        "Credit":  "Solid state relay — public domain (Mike1024), Wikimedia Commons",
+        "Page":  "https://commons.wikimedia.org/wiki/File:Solid_state_relay.jpg",
+        "Url":  "https://upload.wikimedia.org/wikipedia/commons/3/33/Solid_state_relay.jpg"
+    },
+    {
+        "Name":  "ssr_with_led.jpg",
+        "Bytes":  0,
+        "Status":  "FAIL",
+        "Credit":  "SSR solid state relay with LED — Wikimedia Commons (check file page for license)",
+        "Page":  "https://commons.wikimedia.org/wiki/File:SSR_solid_state_relay.jpg",
+        "Url":  "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/SSR_solid_state_relay.jpg/1280px-SSR_solid_state_relay.jpg"
+    },
+    {
+        "Name":  "ds18b20_sensor.jpg",
+        "Bytes":  0,
+        "Status":  "FAIL",
+        "Credit":  "DS18B20 1-Wire digital thermometer — Wikimedia Commons",
+        "Page":  "https://commons.wikimedia.org/wiki/File:DS18B20_1-Wire_digital_thermometer.jpg",
+        "Url":  "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/DS18B20_1-Wire_digital_thermometer.jpg/1280px-DS18B20_1-Wire_digital_thermometer.jpg"
+    },
+    {
+        "Name":  "dht22_sensor.jpg",
+        "Bytes":  0,
+        "Status":  "FAIL",
+        "Credit":  "DHT22 temperature-humidity sensor — Wikimedia Commons",
+        "Page":  "https://commons.wikimedia.org/wiki/File:DHT22_temperature-humidity_sensor.jpg",
+        "Url":  "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/DHT22_temperature-humidity_sensor.jpg/1280px-DHT22_temperature-humidity_sensor.jpg"
+    },
+    {
+        "Name":  "axial_fan.jpg",
+        "Bytes":  0,
+        "Status":  "FAIL",
+        "Credit":  "Computer case fan (axial) — Wikimedia Commons",
+        "Page":  "https://commons.wikimedia.org/wiki/File:Computer_case_fan.jpg",
+        "Url":  "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Computer_case_fan.jpg/1280px-Computer_case_fan.jpg"
+    },
+    {
+        "Name":  "dried_fruit.jpg",
+        "Bytes":  0,
+        "Status":  "FAIL",
+        "Credit":  "Dried fruits — Wikimedia Commons",
+        "Page":  "https://commons.wikimedia.org/wiki/File:Dried_fruits.jpg",
+        "Url":  "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Dried_fruits.jpg/1280px-Dried_fruits.jpg"
+    },
+    {
+        "Name":  "apple_slices.jpg",
+        "Bytes":  0,
+        "Status":  "FAIL",
+        "Credit":  "Apple slices — Wikimedia Commons",
+        "Page":  "https://commons.wikimedia.org/wiki/File:Apple_slices.jpg",
+        "Url":  "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Apple_slices.jpg/1280px-Apple_slices.jpg"
+    },
+    {
+        "Name":  "food_dehydrator.jpg",
+        "Bytes":  0,
+        "Status":  "FAIL",
+        "Credit":  "Food dehydrator — Wikimedia Commons",
+        "Page":  "https://commons.wikimedia.org/wiki/File:Food_dehydrator.jpg",
+        "Url":  "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Food_dehydrator.jpg/1280px-Food_dehydrator.jpg"
+    },
+    {
+        "Name":  "herbs_drying.jpg",
+        "Bytes":  0,
+        "Status":  "FAIL",
+        "Credit":  "Drying herbs — Wikimedia Commons",
+        "Page":  "https://commons.wikimedia.org/wiki/File:Drying_herbs.jpg",
+        "Url":  "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Drying_herbs.jpg/1280px-Drying_herbs.jpg"
+    },
+    {
+        "Name":  "breadboard_electronics.jpg",
+        "Bytes":  0,
+        "Status":  "FAIL",
+        "Credit":  "Arduino breadboard prototype — Wikimedia Commons",
+        "Page":  "https://commons.wikimedia.org/wiki/File:Arduino_breadboard.jpg",
+        "Url":  "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Arduino_breadboard.jpg/1280px-Arduino_breadboard.jpg"
+    }
+]

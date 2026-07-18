@@ -1,0 +1,23 @@
+- type:: backlog
+- created:: 2026-07-18
+- tags:: #backlog #future
+-
+- ## Connectivity
+- STA + AP dual mode; mDNS `dehydrator.local`.
+- Optional MQTT home assistant discovery.
+- Push phone notify via ntfy/Gotify when on LAN (not AP-only).
+-
+- ## Hardware
+- Load cell tray weight for true dry endpoint.
+- Second heater zone.
+- VOC sensor experimental.
+- Touch display on-device without phone.
+-
+- ## Software
+- OTA updates.
+- Multi-language UI.
+- Recipe import JSON from PC.
+- Lightweight on-device duration predictor.
+-
+- ## Related
+- [[01 Architecture]] · [[Recommendations Engine]]

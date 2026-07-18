@@ -1,0 +1,26 @@
+- type:: software
+- created:: 2026-07-18
+- tags:: #data #schema
+-
+- ## TelemetrySnapshot
+- `ts_ms, state, finish_substate, t_air, t_tray, t_exhaust, rh, heater_duty, fan_duty, exhaust_fan_duty, setpoint_c, stage_elapsed_s, session_elapsed_s, eta_s, door_open, fault_code, energy_est_wh, meat_mode, t_meat_min_c, meat_floor_ok, seconds_below_floor, finish_cycle_count, rh_bounce_drh`
+-
+- ## Profile
+- `id, name, setpoint_c, fan_bias, t_min_min, t_max_min, rh_end, rh_hold_min, ramp_c_per_min, notes, food_category`
+- Meat extras: `T_meat_min_c, T_meat_kill_c, require_kill_step, meat_kill_hold_min, early_rh_exit, meat_warm_rest`
+- Finish extras: `finish_rest_min_s, finish_rest_max_s, finish_probe_s, finish_probe_fan_pct, rh_bounce_thresh, finish_max_cycles`
+-
+- ## WarningEvent
+- `id, code, severity, message, first_ts, last_ts, count, acked`
+-
+- ## Recommendation
+- `id, code, title, detail, suggested_delta {temp_c?, fan_pct?, extend_min?}, confidence, created_ts`
+-
+- ## SessionRecord
+- `id, profile_id, start_ts, end_ts, result (DONE|STOP|FAULT|FOOD_SAFETY_ABORT), t_avg, t_min_session, rh_start, rh_end, finish_cycles, energy_est_wh, warning_count, meat_mode`-
+- ## Storage
+- NVS: settings, last profile id, PID gains, cal offsets.
+- LittleFS: `/sessions/YYYYMMDD-HHMM.jsonl`, rotate keep last N.
+-
+- ## Related
+- [[Stats Telemetry Logging]] · [[Food Profiles]]

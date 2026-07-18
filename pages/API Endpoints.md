@@ -1,0 +1,35 @@
+- type:: software
+- created:: 2026-07-18
+- tags:: #api #rest #websocket
+-
+- ## REST (ESPAsyncWebServer)
+- `GET /api/status` → full snapshot JSON.
+- `GET /api/profiles` → list profiles.
+- `GET /api/profiles/{id}` → one profile.
+- `POST /api/session/start` body `{ "profile_id": "apple", "overrides": {...} }` — meat: reject if `temp_c < T_meat_min_c`
+- `POST /api/session/pause`
+- `POST /api/session/resume`
+- `POST /api/session/stop`
+- `POST /api/session/finish/force_ready` — skip probe → COOLDOWN (user override)
+- `POST /api/session/finish/force_continue` — from finishing → RUNNING
+- `POST /api/setpoints` body `{ "temp_c": 57, "fan_pct": null }` — meat: `MEAT_FLOOR` error if below floor
+- `POST /api/warnings/{id}/ack`
+- `POST /api/recommend/{id}/apply`
+- `POST /api/recommend/{id}/dismiss`
+- `GET /api/sessions` → history index.
+- `GET /api/sessions/{id}/log` → CSV/JSON download.
+- `GET /api/stats/summary` → aggregates for UI cards.
+- `GET /api/info` → offline Info page payload (meat temps, danger zone, finish blurb, disclaimer, fw version) — see [[UI Info Page]].
+- `POST /api/settings` → protected.
+-
+- ## WebSocket `/ws`
+- Server → client: `{ "type":"telemetry", "data":{...} }`
+- Server → client: `{ "type":"warning", "data":{...} }`
+- Server → client: `{ "type":"recommend", "data":{...} }`
+- Client → server (optional): ping / subscribe.
+-
+- ## Error shape
+- `{ "ok": false, "error": "DOOR_OPEN", "message": "Close door before start" }`
+-
+- ## Related
+- [[Data Model]] · [[Web AP Interface]]

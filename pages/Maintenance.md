@@ -1,0 +1,19 @@
+- type:: procedure
+- created:: 2026-07-18
+- tags:: #maintenance
+-
+- ## After each run
+- Empty crumbs; wipe trays; leave door ajar cool dry.
+- Review session stats once.
+-
+- ## Monthly
+- Check fan dust; sensor dust; door magnet alignment.
+- Inspect heater wiring discoloration.
+- Confirm thermal fuse area visually OK (no bypass!).
+-
+- ## Firmware
+- OTA optional later; for now USB flash.
+- Export logs before major upgrades.
+-
+- ## Related
+- [[Stats Telemetry Logging]] · [[Future Upgrades]]

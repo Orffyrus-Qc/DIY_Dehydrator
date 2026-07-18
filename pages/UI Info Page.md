@@ -1,0 +1,116 @@
+- type:: ux
+- created:: 2026-07-18
+- tags:: #webui #info #food-safety #meat #ux
+- status:: design
+-
+- ## Purpose
+- Offline **Info** screen in the Soft-AP web UI so the operator always has the **minimum meat / temperature safety facts** without internet.
+- Linked from bottom nav as **Info** (ℹ) and from meat-mode banners (“Why min temp?”).
+-
+- ## Navigation
+- Tab order (suggested): Dashboard · Session · Profiles · Stats · **Info** · Settings
+- Entry points:
+	- Nav **Info**
+	- Meat badge on Dashboard → deep-link `#/info/meat`
+	- Profiles when `food_category == meat` → “Safety temps” chip → same section
+	- Warning `MEAT_TEMP_LOW` / `MEAT_TEMP_UNSAFE` detail → scroll to floor rules
+-
+- ## Page layout (phone-first, scroll)
+- Header: **Safety & how it works**
+- Collapsible sections (default expand **Meat temperatures** when active profile is meat).
+-
+- ### 1. Meat temperatures (minimum facts)
+- Keep short — this is the **required** content set:
+-
+- **Danger zone**
+- - Bacteria grow fastest roughly **4–60 °C (40–140 °F)**.
+- - Do not leave meat sitting long in this range.
+-
+- **What this machine enforces (meat mode)**
+- - **Minimum chamber air floor:** **`T_meat_min_c`** (default **63 °C / 145 °F**).
+- - Session must stay **at or above** this floor while drying (short dips only; then WARN / FAULT).
+- - You **cannot** set a dry temperature **below** the floor.
+-
+- **Kill step (recommended)**
+- - Many food-safety guides: heat meat to about **71 °C / 160 °F** (poultry often **74 °C / 165 °F**) as a **lethality / pre-dry** step, then dry.
+- - Optional in firmware: `require_kill_step` → hold ≥ **`T_meat_kill_c`** (default 71 °C) for `meat_kill_hold_min` before normal dry.
+-
+- **Why 63 °C floor**
+- - Matches common **home dehydrator minimum** guidance for jerky (~**145 °F** continuous).
+- - Sits just **above** the top of the danger zone (~60 °C / 140 °F).
+- - Official USDA drying band after a proper 160 °F step can be **54–60 °C (130–140 °F)**; our floor is a bit **stricter** for automation safety.
+-
+- **Important limits (disclaimer box, always visible)**
+- - Values are **chamber air** from sensors — **not** a guarantee of internal meat temperature.
+- - Does **not** replace curing, clean prep, thickness control, or local food-safety rules.
+- - When unsure: enable kill-step, raise setpoint, longer `t_min`.
+-
+- ### 2. Live values (this device)
+- Pull from API so numbers match firmware, not hard-coded HTML only:
+- | Label | Source |
+- |---|---|
+- | Meat floor | `settings.T_meat_min_c` or active profile |
+- | Kill target | `T_meat_kill_c` |
+- | Active setpoint | telemetry / session |
+- | Floor OK? | `meat_floor_ok` |
+- | Units | Settings °C/°F toggle |
+-
+- Show both °C and °F always on this page (or convert with unit setting + small secondary unit).
+-
+- ### 3. Finishing mode (short)
+- Rest → **internal fan only** → measure humidity bounce.
+- Rise → continue dry; stable → ready / cool-down.
+- Link tone: one paragraph + “See session stage labels.”
+-
+- ### 4. Quick refs
+- Soft-AP address: `http://192.168.4.1`
+- States: IDLE → PREHEAT → RUNNING → FINISHING → COOLDOWN → DONE
+- Critical faults need Ack after physical check.
+-
+- ## Copy deck (UI strings — EN default)
+- Title: `Info`
+- H1: `Safety & temperatures`
+- Meat H2: `Meat mode — minimum temperatures`
+- Danger: `Danger zone: about 4–60 °C (40–140 °F). Keep meat out of this range during a run.`
+- Floor: `This unit keeps meat-mode chamber air at or above {floor} (default 63 °C / 145 °F).`
+- Kill: `Recommended lethality step: heat meat ~71 °C / 160 °F (poultry ~74 °C / 165 °F) before or at start of dry when enabled.`
+- Disclaimer: `Air temperature is a proxy only. You are responsible for safe food handling.`
+- Why link: `Why this minimum?`
+- Why body: `63 °C ≈ common home-jerky dehydrator minimum (145 °F) and above the 60 °C danger-zone top. USDA often pairs a 160 °F step with a 130–140 °F dry band; we enforce a higher continuous floor by default.`
+-
+- ## Assets
+- Static: `info.html` section in SPA **or** `info.json` + render in `app.js`.
+- Prefer `GET /api/info` for live limits + static paragraphs from LittleFS `www/info_meat.md` or embedded PROGMEM strings (AP has no internet — **no external links required at runtime**).
+- Optional “Sources (names only)” footer for offline trust:
+	- USDA FSIS — jerky / danger zone (titles only; no live fetch)
+	- Home extension guides — ≥145 °F dehydrator class
+-
+- ## API
+- `GET /api/info` → JSON:
+- ```json
+- {
+-   "units_default": "C",
+-   "meat": {
+-     "T_meat_min_c": 63,
+-     "T_meat_kill_c": 71,
+-     "T_poultry_kill_c": 74,
+-     "danger_zone_c": { "min": 4, "max": 60 },
+-     "usda_dry_band_c": { "min": 54, "max": 60 },
+-     "require_kill_step_default": false,
+-     "disclaimer": "..."
+-   },
+-   "finish": {
+-     "summary": "Rest, then internal fan only; RH bounce → continue or ready."
+-   },
+-   "device": { "fw_version": "...", "ap_ip": "192.168.4.1" }
+- }
+- ```
+-
+- ## Acceptance
+- Info readable offline on phone in AP mode.
+- Meat floor number matches Settings / active profile.
+- Meat run shows deep-link path from banner.
+- Disclaimer visible without expanding obscure accordion.
+-
+- ## Related
+- [[Web AP Interface]] · [[API Endpoints]] · [[Meat Mode]] · [[Finishing Mode]] · [[Safety Interlocks]] · [[Food Profiles]]

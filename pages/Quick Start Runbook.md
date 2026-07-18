@@ -1,0 +1,29 @@
+- type:: runbook
+- created:: 2026-07-18
+- tags:: #runbook #ops
+-
+- ## First power-on (commissioned unit)
+- Plug mains (GFCI recommended) + 5 V ESP.
+- Phone Wi‑Fi → `Dehydrator-XXXX` → browser `http://192.168.4.1`
+- Settings: set AP password if still default; confirm °C; safety limits.
+-
+- ## Automated run
+- Load trays (uniform slices).
+- Profiles → choose food (e.g. Apple) → **Start**.
+- Walk away. Phone can disconnect; control continues on ESP32.
+- Rejoin AP anytime for stats / warnings / recommendations.
+-
+- ## If warning appears
+- Amber: read card; apply recommendation or fix physical issue (door, load).
+- Red CRITICAL: heaters should be off — inspect before Ack.
+-
+- ## When DONE
+- Cool trays; store food airtight.
+- Optional: export session log from Stats.
+- Reset → IDLE.
+-
+- ## Emergency
+- Kill mains switch. Do not rely only on UI.
+-
+- ## Related
+- [[Web AP Interface]] · [[Food Profiles]] · [[Warnings System]] · [[Build Checklist]]

@@ -1,0 +1,49 @@
+-
+- ## DIY ESP32 Dehydrator — Knowledge System
+- Fully automated food dehydrator controlled by **ESP32** with **Wi‑Fi Access Point**, live **stats**, **warnings**, and **recommendations**.
+-
+- ## Start here
+- [[Quick Start Runbook]]
+- [[Sample Session Walkthrough]]
+- [[Software Implementation Order]]
+- [[00 Overview]]
+- [[01 Architecture]]
+- [[Build Checklist]]
+- [[Diagrams]]
+- [[Image Credits]]
+- [[Automation Goals]]
+-
+- ## Hardware
+- [[BOM Parts List]]
+- [[Mechanical Enclosure]]
+- [[Electrical Wiring]]
+- [[Pin Map ESP32]]
+- [[Power System]]
+- [[Sensors]]
+- [[Actuators]]
+- [[Safety Interlocks]]
+-
+- ## Software
+- [[Firmware Architecture]]
+- [[Control State Machine]]
+- [[Meat Mode]]
+- [[Finishing Mode]]
+- [[PID and Climate Control]]
+- [[Web AP Interface]]
+- [[UI Info Page]]
+- [[Stats Telemetry Logging]]
+- [[Warnings System]]
+- [[Recommendations Engine]]
+- [[Food Profiles]]
+- [[API Endpoints]]
+- [[Data Model]]
+-
+- ## Ops
+- [[Calibration]]
+- [[Test Plan]]
+- [[Failure Modes]]
+- [[Maintenance]]
+- [[Future Upgrades]]
+-
+- ## Cross-links (other graphs)
+- Related shop knowledge lives in Inventory / ArduinoLAB when parts are shared (IRLZ44N, DS3231, MEGA, etc.).

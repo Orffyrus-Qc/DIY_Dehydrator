@@ -1,0 +1,45 @@
+- type:: software
+- created:: 2026-07-18
+- tags:: #webui #wifi #ap #ux
+-
+- ## AP mode
+-
+- ![Web AP dashboard mockup](../assets/web_ui_mockup.png)
+- On boot: `WiFi.softAP(ssid, pass)`.
+- SSID: `Dehydrator-` + last 4 of MAC.
+- Password: stored in NVS (default change-on-first-run).
+- IP: `192.168.4.1`
+- Captive portal optional (DNS * → 192.168.4.1) for phone convenience.
+-
+- ## UI pages (SPA or multi HTML)
+- **Dashboard** — big temp, RH, state, duty, fan, ETA, sparkline; meat badge + min-temp; finishing sub-stage + `drh`.
+- **Profiles** — pick food, edit temp/time before start; meat profiles lock temp ≥ floor; show kill-step toggle.
+- **Session** — start/pause/stop, stage progress; **Force ready** / **Force continue dry** during finishing.
+- **Stats** — live charts + last sessions list; finish cycle count.
+- **Warnings** — active list + history; ack button.
+- **Recommendations** — cards with Apply / Dismiss.
+- **Info** — offline safety + temperature facts (danger zone, meat floor **63 °C / 145 °F**, kill step **71 °C / 160 °F**, finishing summary, disclaimer). Spec: [[UI Info Page]].
+- **Settings** — AP pass, units °C/°F, calibration offsets, safety limits incl. default `T_meat_min_c` (PIN protect).
+-
+- ## Bottom nav (suggested)
+- `Dashboard · Session · Profiles · Stats · Info · ⚙`
+- Meat badge / “Why min temp?” → `#/info/meat`.
+-
+- ## Realtime
+- WebSocket `/ws` pushes `TelemetrySnapshot` every 1–2 s (includes `finish_substate`, `meat_floor_ok`, `rh_bounce_drh`).
+- REST for commands (start/stop/set) with CSRF-ish token optional on LAN AP.
+-
+- ## UX automation helpers
+- “One-tap last recipe”.
+- Progress bar from stage + RH trajectory; finishing shows Rest → Probe → (Dry again | Cool).
+- Color state: green RUN, amber WARN, red FAULT, blue IDLE/DONE, purple/teal FINISHING.
+- Meat mode persistent amber-safe banner while floor OK; red if approaching/below floor.
+- Keep-awake friendly large touch targets.
+-
+- ## Offline assets
+- Serve from LittleFS: `index.html`, `app.js`, `style.css`, Chart.js lite or pure CSS bars.
+- Info strings: embed in `app.js` **or** `GET /api/info` so floor/kill match firmware ([[UI Info Page]]).
+- No CDN dependency (AP has no internet) — Info page must not load external URLs.
+-
+- ## Related
+- [[API Endpoints]] · [[UI Info Page]] · [[Meat Mode]] · [[Stats Telemetry Logging]] · [[Warnings System]] · [[Recommendations Engine]]

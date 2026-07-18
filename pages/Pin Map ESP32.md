@@ -1,0 +1,33 @@
+- type:: reference
+- created:: 2026-07-18
+- tags:: #esp32 #pins #firmware
+-
+- ## Suggested pin map (DevKitC — adjust to your board silk)
+-
+- ### Reference photo
+- ![ESP32 development board pin headers](../assets/web/esp32_dev_board.jpg){:height 320}
+- ![ESP32 WROOM module board](../assets/web/esp32_wroom_devboard.jpg){:height 280}
+- Credits: [[Image Credits]]
+-
+- ![ESP32 pin map](../assets/pin_map.png)
+- Avoid strapping pins for critical outputs if possible (0, 2, 12, 15 on many modules).
+-
+- | Function | GPIO | Notes |
+- |---|---|---|
+- | Heater SSR | 25 | OUTPUT, active HIGH/LOW per SSR |
+- | Fan PWM | 26 | LEDC PWM 25 kHz |
+- | Buzzer | 27 | OUTPUT tone / on-off |
+- | Status LED / WS2812 | 14 | single-wire or simple LED |
+- | Door switch | 34 | INPUT only (no pull on 34/35/36/39 — use external pull-up) |
+- | I²C SDA (SHT) | 21 | default |
+- | I²C SCL (SHT) | 22 | default |
+- | 1-Wire DS18B20 | 4 | 4.7k pull-up |
+- | Optional current alert | 35 | ADC / digital |
+- | Boot / spare | 0 | keep free for flashing |
+-
+- ## Config as constants
+- Centralize in `config.h` / NVS so web UI can show pin roles.
+- Document active levels: `HEATER_ACTIVE_HIGH`, `DOOR_OPEN_LEVEL`.
+-
+- ## Related
+- [[Firmware Architecture]] · [[Electrical Wiring]]

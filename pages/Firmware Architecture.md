@@ -1,0 +1,43 @@
+- type:: software
+- created:: 2026-07-18
+- tags:: #firmware #esp32 #arduino
+-
+- ## Recommended stack
+-
+- ### Target MCU photo
+- ![ESP32 WROOM Dev Board](../assets/web/esp32_wroom_devboard.jpg){:height 280}
+- Credits: [[Image Credits]]
+- PlatformIO + Arduino framework on ESP32.
+- Libraries: `ArduinoJson`, `AsyncTCP` + `ESPAsyncWebServer`, `Adafruit SHT31` (or Sensirion), `OneWire` + `DallasTemperature`, `Preferences` (NVS), LittleFS.
+-
+- ## Module map
+- `main.cpp` — setup/loop orchestration only.
+- `config.h` — pins, limits, version.
+- `sensors.cpp` — read + filter + validity.
+- `actuators.cpp` — heater time-proportioning, fan PWM, buzzer.
+- `control.cpp` — PID + state machine (incl. FINISH_REST / FINISH_PROBE).
+- `meat_policy.cpp` — min-temp floor, kill-step, cold-exposure timers ([[Meat Mode]]).
+- `finish_probe.cpp` — rest window, fan-only RH bounce decision ([[Finishing Mode]]).
+- `profiles.cpp` — food profiles in PROGMEM + NVS overrides (meat + finish fields).
+- `warnings.cpp` — rule evaluation (incl. MEAT_* / FINISH_*).
+- `recommend.cpp` — suggestion engine.
+- `web.cpp` — AP, HTTP, WebSocket, static UI (SPIFFS/LittleFS); `GET /api/info` for [[UI Info Page]].
+- `logstore.cpp` — session CSV/JSON lines, rotation.
+- `telemetry.cpp` — snapshot struct shared with web.
+-
+- ## Loop timing
+- 10 Hz fast loop: door, fault, heater time slice.
+- 1 Hz control: PID, state transitions, warnings.
+- 2 s telemetry push WebSocket.
+- 60 s log sample when RUNNING.
+-
+- ## Tasks (optional FreeRTOS)
+- `TaskControl` core 1.
+- `TaskWeb` core 0.
+- Mutex around `TelemetrySnapshot`.
+-
+- ## Non-blocking
+- No long `delay()` in control path; heater SSR slicing uses millis().
+-
+- ## Related
+- [[Control State Machine]] · [[Web AP Interface]] · [[API Endpoints]] · [[Data Model]]

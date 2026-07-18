@@ -1,0 +1,20 @@
+# Logseq runtime / backups
+logseq/bak/
+logseq/.recycle/
+**/*.transit
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / OS
+*.swp
+*.tmp
+.vscode/
+.idea/
+
+# Build artifacts (future firmware)
+.pio/
+.vscode/.browse.c_cpp.db*
+compile_commands.json
+**/build/
+**/dist/

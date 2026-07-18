@@ -1,0 +1,114 @@
+﻿[
+    {
+        "license":  "CC0",
+        "title":  "File:ESP32_Espressif_ESP-WROOM-32_Dev_Board_(2).jpg",
+        "artist":  "Ubahnverleih",
+        "file":  "esp32_wroom_devboard.jpg",
+        "source_page":  "https://commons.wikimedia.org/wiki/File:ESP32_Espressif_ESP-WROOM-32_Dev_Board_(2).jpg"
+    },
+    {
+        "license":  "CC BY-SA 4.0",
+        "title":  "File:ESP32_Dev_Board.jpg",
+        "artist":  "Edwiyanto",
+        "file":  "esp32_dev_board.jpg",
+        "source_page":  "https://commons.wikimedia.org/wiki/File:ESP32_Dev_Board.jpg"
+    },
+    {
+        "license":  "Public domain",
+        "title":  "File:Solid_state_relay.jpg",
+        "artist":  "en:User:Mike1024",
+        "file":  "ssr_solid_state_relay.jpg",
+        "source_page":  "https://commons.wikimedia.org/wiki/File:Solid_state_relay.jpg"
+    },
+    {
+        "license":  "CC BY-SA 4.0",
+        "title":  "File:SSR_solid_state_relay.jpg",
+        "artist":  "W2000",
+        "file":  "ssr_with_led.jpg",
+        "source_page":  "https://commons.wikimedia.org/wiki/File:SSR_solid_state_relay.jpg"
+    },
+    {
+        "license":  "Copyrighted free use",
+        "title":  "File:Axial_fan.jpg",
+        "artist":  "Spal Automotive S.r.l.",
+        "file":  "axial_fan.jpg",
+        "source_page":  "https://commons.wikimedia.org/wiki/File:Axial_fan.jpg"
+    },
+    {
+        "license":  "CC BY-SA 4.0",
+        "title":  "File:Dried_fruit.jpg",
+        "artist":  "Alvinbeta2",
+        "file":  "dried_fruit.jpg",
+        "source_page":  "https://commons.wikimedia.org/wiki/File:Dried_fruit.jpg"
+    },
+    {
+        "license":  "Public domain",
+        "title":  "File:1-Wire-Protocol.png",
+        "artist":  "FrankBuss",
+        "file":  "onewire_protocol.png",
+        "source_page":  "https://commons.wikimedia.org/wiki/File:1-Wire-Protocol.png"
+    },
+    {
+        "license":  "CC BY-SA 4.0",
+        "title":  "File:AM2302 (DHT22) digital temperature and humidity sensor module.jpg",
+        "artist":  "Suyash Dwivedi",
+        "file":  "dht22_sensor.jpg",
+        "source_page":  "https://commons.wikimedia.org/wiki/File:AM2302_(DHT22)_digital_temperature_and_humidity_sensor_module.jpg"
+    },
+    {
+        "license":  "CC BY-SA 3.0",
+        "title":  "File:Tomato in food dehydrator.jpg",
+        "artist":  "Latch / transfer Szymon Żywicki",
+        "file":  "food_dehydrator.jpg",
+        "source_page":  "https://commons.wikimedia.org/wiki/File:Tomato_in_food_dehydrator.jpg"
+    },
+    {
+        "license":  "CC BY-SA 4.0",
+        "title":  "File:MOSFET transistors.jpg",
+        "artist":  "Mister rf",
+        "file":  "mosfet_to220.jpg",
+        "source_page":  "https://commons.wikimedia.org/wiki/File:MOSFET_transistors.jpg"
+    },
+    {
+        "license":  "CC BY-SA 4.0",
+        "title":  "File:Sensor DS18B20.jpg",
+        "artist":  "(see Commons page)",
+        "file":  "ds18b20_sensor.jpg",
+        "source_page":  "https://commons.wikimedia.org/wiki/File:Sensor_DS18B20.jpg"
+    },
+    {
+        "license":  "CC BY 2.0",
+        "title":  "File:SparkFun DS18B20 1.jpg",
+        "artist":  "SparkFun (see Commons)",
+        "file":  "ds18b20_sparkfun.jpg",
+        "source_page":  "https://commons.wikimedia.org/wiki/File:SparkFun_DS18B20_1.jpg"
+    },
+    {
+        "license":  "CC0",
+        "title":  "File:Dried apple slices.jpg",
+        "artist":  "(see Commons)",
+        "file":  "dried_apple_slices.jpg",
+        "source_page":  "https://commons.wikimedia.org/wiki/File:Dried_apple_slices.jpg"
+    },
+    {
+        "license":  "CC BY-SA 4.0",
+        "title":  "File:Liat Portal for Foodie Disorder - Sliced Red Apple.jpg",
+        "artist":  "(see Commons)",
+        "file":  "sliced_red_apple.jpg",
+        "source_page":  "https://commons.wikimedia.org/wiki/File:Liat_Portal_for_Foodie_Disorder_-_Sliced_Red_Apple.jpg"
+    },
+    {
+        "license":  "CC0",
+        "title":  "File:Breadboard with circuit.jpg",
+        "artist":  "(see Commons)",
+        "file":  "breadboard.jpg",
+        "source_page":  "https://commons.wikimedia.org/wiki/File:Breadboard_with_circuit.jpg"
+    },
+    {
+        "license":  "CC0",
+        "title":  "File:Breadboard in electronics.jpg",
+        "artist":  "(see Commons)",
+        "file":  "breadboard_electronics.jpg",
+        "source_page":  "https://commons.wikimedia.org/wiki/File:Breadboard_in_electronics.jpg"
+    }
+]

@@ -1,0 +1,41 @@
+- type:: software
+- created:: 2026-07-18
+- tags:: #pid #control
+-
+- ## Temperature loop
+- Input: filtered Tair (SHT).
+- Output: heater duty 0–`duty_max`.
+- Form: classic PID with:
+- anti-windup (clamp integrator when saturated)
+- derivative on measurement (less setpoint-kick)
+- sample time 1.0 s
+-
+- ## Startup
+- Conservative gains first; tune via [[Calibration]].
+- Optional bang-bang until within 5 °C then PID.
+
+- ## Humidity coupling
+- Not a second PID initially.
+- Rule-based: if RH high and T in band → raise fan duty.
+- if RH low and T overshoot → cut heater faster (reduce Ki effect via gain schedule).
+-
+- ## Fan curve
+- `fan = f(state, RH, heater_duty, profile.fan_bias)`
+- PREHEAT: 40–60%
+- RUNNING dry fruits: 50–80%
+- herbs: lower fan to reduce aroma blow-off
+- meat RUNNING: keep enough airflow but do not over-cool below floor — if `MEAT_TEMP_LOW`, temporarily reduce fan
+- FINISH_REST: fan **off** (or trickle); meat warm-rest may use near-zero fan
+- FINISH_PROBE: **internal fan only** at `finish_probe_fan_pct`; heater 0; exhaust off if dual-fan — [[Finishing Mode]]
+- COOLDOWN: 80–100%
+-
+- ## Meat mode setpoint floor
+- Effective setpoint = max(user/profile setpoint, `T_meat_min_c`) when meat mode active.
+- Integrator reset rules still apply; never “help” the user by tracking below floor.
+-
+- ## Setpoint changes
+- Smooth ramp limit °C/min to avoid heater slam and food case-hardening.
+- Clamp: meat mode rejects ramps that would target below floor.
+-
+- ## Related
+- [[Control State Machine]] · [[Sensors]] · [[Calibration]] · [[Meat Mode]] · [[Finishing Mode]]

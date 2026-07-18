@@ -1,0 +1,43 @@
+- type:: safety
+- created:: 2026-07-18
+- tags:: #safety #interlocks
+-
+- ## Independent hardware
+- Thermal fuse in series with heater.
+- Correct fuse on mains inlet.
+- Chassis earth.
+- SSR off when ESP unpowered.
+-
+- ## Firmware hard limits (always on)
+- `T_max_abs` e.g. 75–80 °C air (configurable, food-safe ceiling for your build).
+- `T_rate_max` °C/min — trip if sensor jumps insanely (wiring fault).
+- `duty_max` global cap.
+- Heater heartbeat: control loop must refresh duty every ≤ 2 s or force 0.
+- Door open → heater duty 0.
+-
+- ## Meat mode minimum temperature (when `food_category == meat`)
+- Floor: `T_meat_min_c` (profile, default **63 °C**) — product must not linger cold and spoil.
+- Soft trip: below floor ≥ `meat_floor_warn_s` → `MEAT_TEMP_LOW`, drive heat up, ease cooling fan.
+- Hard trip: below floor ≥ `meat_floor_grace_s` → `MEAT_TEMP_UNSAFE` CRITICAL → `FAULT`, session flagged food-safety abort.
+- API/UI cannot set live setpoint below floor; Start rejected if profile setpoint below floor + margin.
+- After door-open cold soak: require re-PREHEAT above floor before resume dry.
+- Full policy: [[Meat Mode]].
+-
+- ## Finishing mode actuator constraints
+- `FINISH_PROBE`: heater forced 0; internal fan only (exhaust off if dual-fan) — [[Finishing Mode]].
+- Meat warm rest may hold heater at floor only; never disable meat floor monitoring during finishing.
+-
+- ## Fault severity
+- INFO / WARN / CRITICAL — see [[Warnings System]].
+- CRITICAL → state `FAULT`, heater 0, alarm, UI red banner, log event.
+-
+- ## Recovery policy
+- Auto-clear only for transient WARN (door closed again).
+- CRITICAL requires Acknowledge in UI after condition cleared.
+- Meat CRITICAL: do not auto-resume mid-session as “still safe”; user ack + explicit re-start/re-preheat policy.
+-
+- ## Food safety note
+- Automation optimizes drying and enforces a **minimum air temp floor** in meat mode; user still responsible for safe food handling (clean trays, thickness, curing, adequate dry times, storage). Air temp is not a full guarantee of internal product temperature.
+-
+- ## Related
+- [[Failure Modes]] · [[Electrical Wiring]] · [[Warnings System]] · [[Meat Mode]] · [[Finishing Mode]]

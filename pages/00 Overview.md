@@ -1,0 +1,42 @@
+- type:: project
+- created:: 2026-07-18
+- status:: design
+- tags:: #diy #dehydrator #esp32 #automation #webui
+- graph:: DIY_Dehydrator
+-
+- ## Goal
+-
+- ### Reference photo (internet)
+- ![Stackable food dehydrator with tomato slices](../assets/web/food_dehydrator.jpg){:height 360}
+- Source: Wikimedia Commons — see [[Image Credits]]
+-
+- ![System architecture overview](../assets/architecture.png)
+-
+- ![Automation stack](../assets/automation_stack.png)
+- Build a **mostly hands-off** food dehydrator:
+- Load trays → pick a food profile (or auto-detect from last recipe) → start → walk away.
+- ESP32 runs a soft-AP web UI for phone/laptop control with **live stats**, **warnings**, and **smart recommendations**.
+-
+- ## Design principles (max automation)
+- Closed-loop climate control (temp + humidity + airflow).
+- Profile-driven setpoints with automatic stage transitions (warm-up → dry → **finish rest/probe** → cool-down, or back to dry if core still wet).
+- **Meat mode**: keep chamber above a **minimum temperature** so meat does not spoil ([[Meat Mode]]).
+- **Finishing mode**: rest → internal fan only → RH bounce decides continue vs ready ([[Finishing Mode]]).
+- Safety-first: thermal cutouts, door sensor, heater watchdog, sensor-fail safe state, meat floor.
+- Local-first: works offline as Wi‑Fi AP (`Dehydrator-AP`), no cloud required.
+- Observability: rolling stats, session history on SPIFFS/LittleFS, optional CSV export.
+-
+- ## Success criteria
+- Hold ±1.5 °C of setpoint after warm-up (typical mid-range loads).
+- Auto-end when humidity slope + time criteria met (or max-time safety stop).
+- Web UI updates telemetry ≤ 2 s lag.
+- Any hard fault → heaters OFF within 1 control cycle + audible/visual alarm + UI banner.
+-
+- ## Document map
+- System design: [[01 Architecture]] · [[Automation Goals]] · [[Meat Mode]] · [[Finishing Mode]]
+- Build: [[BOM Parts List]] · [[Mechanical Enclosure]] · [[Electrical Wiring]]
+- Code: [[Firmware Architecture]] · [[Web AP Interface]] · [[Food Profiles]] · [[Control State Machine]]
+- Run: [[Build Checklist]] · [[Test Plan]] · [[Calibration]]
+-
+- ## Safety disclaimer
+- Mains heaters are lethal if mishandled. Use proper insulation, fusing, SSR/relay ratings, GFCI/RCD where required by local code, and a **mechanical thermal fuse** independent of the ESP32.

@@ -1,0 +1,52 @@
+- type:: software
+- created:: 2026-07-18
+- tags:: #statemachine #automation
+-
+- ## States
+-
+- ![Control state machine](../assets/state_machine.png)
+- `IDLE` — heaters off, fan optional, waiting for Start.
+- `PREHEAT` — ramp to setpoint; fan medium; ignore finish logic. Meat may run optional kill-step hold ([[Meat Mode]]).
+- `RUNNING` — main dry loop; PID; recommendations active; meat floor enforced.
+- `FINISHING` — parent for end-of-run moisture verification; see sub-states + [[Finishing Mode]].
+- `COOLDOWN` — heater off, fan high/medium, until T < threshold or timeout.
+- `DONE` — notify user; log session summary; await unload.
+- `PAUSED` — user or door; heaters off (meat: track cold exposure).
+- `FAULT` — safe state; await ack.
+- `RECOVER` — after power loss if policy allows review before resume.
+-
+- ## FINISHING sub-states
+- `FINISH_REST` — product **rests**: heater off (or meat **warm rest** at floor), fans off/trickle — internal moisture migrates out.
+- `FINISH_PROBE` — **internal fan only**, heater off; measure RH bounce to decide continue vs ready.
+- Decision:
+	- RH rises (`drh ≥ rh_bounce_thresh`) → back to **`RUNNING`** (continue dehydration).
+	- RH flat/low → **`COOLDOWN`** (ready).
+	- Max finish cycles exceeded → COOLDOWN + `FINISH_MAX_CYCLES`.
+-
+- ## Transitions (happy path)
+- IDLE --Start--> PREHEAT
+- PREHEAT --T within band N seconds (+ kill-step if meat)--> RUNNING
+- RUNNING --finish criteria--> FINISHING / FINISH_REST
+- FINISH_REST --rest min elapsed--> FINISH_PROBE
+- FINISH_PROBE --RH bounce / still wet--> RUNNING
+- FINISH_PROBE --RH stable / dry--> COOLDOWN
+- COOLDOWN --cool ok--> DONE
+- DONE --Reset/Unload ack--> IDLE
+-
+- ## Finish criteria (enter FINISHING from RUNNING)
+- RH below `rh_end` for `rh_hold_min` minutes **OR**
+- RH slope ≈ 0 and elapsed > `t_min` **AND**
+- elapsed < `t_max` (else force FINISHING with warn `MAX_TIME`).
+- **Meat profiles** ([[Meat Mode]]): prefer time+temp conservative; `early_rh_exit = false`; less aggressive RH end; warm-rest if needed.
+- Entering FINISHING does **not** mean done — [[Finishing Mode]] may send the session back to RUNNING.
+-
+- ## Meat mode overlays (all heat-allowed states)
+- Enforce `T_control ≥ T_meat_min_c` with grace timers → `MEAT_TEMP_LOW` / `MEAT_TEMP_UNSAFE`.
+- Block setpoint below floor. Details: [[Meat Mode]] · [[Safety Interlocks]].
+-
+- ## Abort
+- User Stop → COOLDOWN (preferred) or IDLE if already cool.
+- Critical fault → FAULT from any state (including meat floor CRITICAL).
+-
+- ## Related
+- [[PID and Climate Control]] · [[Food Profiles]] · [[Automation Goals]] · [[Meat Mode]] · [[Finishing Mode]]

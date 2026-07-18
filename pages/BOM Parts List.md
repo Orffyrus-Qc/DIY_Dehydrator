@@ -1,0 +1,62 @@
+- type:: bom
+- created:: 2026-07-18
+- tags:: #bom #parts #hardware
+-
+- ## Controller
+-
+- ### Reference photos
+- ![ESP32 WROOM development board](../assets/web/esp32_wroom_devboard.jpg){:height 280}
+- ![ESP32 Dev Board alternate](../assets/web/esp32_dev_board.jpg){:height 280}
+- ![Solid state relay](../assets/web/ssr_solid_state_relay.jpg){:height 240}
+- ![Axial fan](../assets/web/axial_fan.jpg){:height 220}
+- Credits: [[Image Credits]]
+- ESP32 DevKitC / WROOM-32 (1×) — MCU + Wi‑Fi AP.
+- Optional: DS3231 RTC module if long power-loss scheduling later.
+- MicroSD or rely on LittleFS (2–4 MB flash enough for logs if rotated).
+-
+- ## Sensors
+- SHT31 or SHT40 (I²C) — primary air temp + RH (preferred over DHT22 for accuracy/stability).
+- Backup: DHT22 only if budget forces it (accept higher RH error).
+- DS18B20 (1–3×) — tray / exhaust air temps for gradients.
+- Magnetic reed switch or limit switch — door open/closed.
+- Optional: ACS712/INA219 — heater current presence (detect SSR/heater fail).
+- Optional: MQ-series **not** required for food drying; skip unless smoke detect experiment.
+-
+- ## Actuation
+- SSR zero-cross 25–40 A (mains heater) **or** quality mechanical relay + snubber if budget.
+- N-MOSFET logic-level (e.g. IRLZ44N) + diode — DC fan PWM if 12 V fans.
+- 12 V (or 5 V) axial fans 1–2× — intake/exhaust airflow.
+- Active buzzer 3.3/5 V — alarms.
+- WS2812 or dual LED — status (OK / warn / fault).
+-
+- ## Thermal / chamber
+- Food dehydrator chassis (repurposed unit) **or** insulated plywood/metal box + food-safe trays.
+- Mains heater element sized to chamber (commonly 300–1000 W DIY; prefer OEM element ratings).
+- **Thermal fuse** (e.g. 90–120 °C class matched to design) in series with heater — independent of MCU.
+- High-temp wiring for heater circuit; strain relief; ceramic terminal blocks.
+-
+- ## Power
+- 5 V 2 A+ USB supply for ESP32 (isolated from mains as much as practical).
+- 12 V PSU for fans if needed (separate, fused).
+- Mains inlet, switch, fuse holder, terminal blocks.
+- See [[Power System]].
+-
+- ## Wiring / passive
+- Level-safe: ESP32 is 3.3 V logic — use SSR with 3.3 V compatible input or transistor driver.
+- Pull-ups for I²C (often on modules), 4.7 kΩ for 1-Wire.
+- Flyback diodes on any relay coils.
+- Ferrite / decoupling 100 nF near ESP32.
+-
+- ## Enclosure electronics
+- Project box for ESP32 away from heat path.
+- Cable glands; keep sensor wires away from heater SSR noise.
+-
+- ## Estimated budget bands
+- Budget recycle chassis: low–medium.
+- New insulated box + quality SSR + SHT31: medium.
+-
+- ## Inventory cross-check
+- If on hand: IRLZ44N, DS3231, MEGA parts — see personal Inventory graph; ESP32 still preferred for AP UI.
+-
+- ## Related
+- [[Electrical Wiring]] · [[Pin Map ESP32]] · [[Sensors]] · [[Actuators]]

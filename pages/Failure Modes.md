@@ -1,0 +1,35 @@
+- type:: reference
+- created:: 2026-07-18
+- tags:: #fmea #safety
+-
+- ## Heater stuck on
+- Causes: SSR failed short, GPIO stuck, software bug.
+- Mitigations: thermal fuse, current sense CRITICAL, mechanical thermostat series optional, external watchdog.
+-
+- ## Heater never heats
+- SSR open, wiring, blown fuse, thermal fuse open.
+- Detect: duty high + dT/dt ~ 0 + no current → WARN.
+-
+- ## Sensor failure
+- Open/short/I²C NACK → stale → FAULT.
+-
+- ## Fan failure
+- High gradient + poor RH progress → WARN + recommend check fan.
+-
+- ## Wi‑Fi / UI unavailable
+- Control must remain safe offline; physical kill switch on mains recommended.
+-
+- ## Food overdry / underdry
+- Profile wrong; finish criteria bad — recommendation engine adjusts next run.
+- Undercut by surface-dry false positive: mitigated by [[Finishing Mode]] rest + RH bounce probe.
+-
+- ## Meat cold soak / spoilage risk
+- Door open long, heater underpowered, fan overcooling, setpoint too low.
+- Mitigations: [[Meat Mode]] floor, MEAT_TEMP_* warnings, reject low setpoints, warm rest, food-safety abort on hard trip.
+-
+- ## Finishing loop thrash
+- Bounce threshold too sensitive → endless RUNNING↔FINISHING.
+- Mitigations: `finish_max_cycles`, hysteresis on `rh_bounce_thresh`, MAX_TIME absolute stop.
+-
+- ## Related
+- [[Safety Interlocks]] · [[Warnings System]] · [[Meat Mode]] · [[Finishing Mode]]

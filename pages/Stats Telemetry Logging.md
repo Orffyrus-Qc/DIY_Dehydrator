@@ -1,0 +1,32 @@
+- type:: software
+- created:: 2026-07-18
+- tags:: #stats #logging #telemetry
+-
+- ## Live stats (dashboard)
+- Current T/RH/setpoint/duty/fan/state.
+- Sparkline last 30–60 min (ring buffer RAM).
+- Derived: drying rate dRH/dt, heat effort (integral of duty), tray gradient.
+-
+- ## Session stats
+- Duration, energy estimate (`P_rated * duty_avg * time`), min/max T, RH start→end, warnings count.
+- Stored on DONE/STOP/FAULT.
+-
+- ## Historical analytics (on-device light)
+- Average duration per profile.
+- Typical energy per profile.
+- Fault frequency.
+- Feed [[Recommendations Engine]] (“Last 3 apple runs finished 40 min early — try −5 °C? No: suggest shorter t_max”).
+-
+- ## Logging cadence
+- RUNNING: 60 s samples.
+- On state change: always log event line.
+- On WARN/CRITICAL: log immediately.
+-
+- ## Export
+- Download CSV from UI for PC analysis.
+-
+- ## Privacy
+- All local on device; wipe via Settings.
+-
+- ## Related
+- [[Web AP Interface]] · [[Data Model]]

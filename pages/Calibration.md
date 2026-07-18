@@ -1,0 +1,27 @@
+- type:: procedure
+- created:: 2026-07-18
+- tags:: #calibration #procedure
+-
+- ## Temperature
+- Compare SHT vs reference thermometer mid-chamber at 40, 50, 60 °C steady.
+- Store offset `t_air_offset` in NVS (UI Settings).
+- DS18B20: match at room then at operating; per-probe offsets.
+-
+- ## Humidity
+- Salt calibration optional (advanced); or compare to known hygrometer.
+- Offset clamp ±10% RH to avoid masking bad sensor.
+-
+- ## PID tune (practical)
+- Start Kp low, Ki 0, Kd 0; raise Kp until mild oscillation then back 30%.
+- Add Ki until steady-state error ~0.
+- Small Kd if overshoot remains.
+- Save gains per chamber (not per food) first.
+-
+- ## Heater power estimate
+- Measure mains W if possible; store `heater_watts` for energy stats.
+-
+- ## Door / SSR polarity
+- Test matrix: door open must kill heater; SSR off when duty 0 (IR thermometer / current).
+-
+- ## Related
+- [[Test Plan]] · [[PID and Climate Control]]

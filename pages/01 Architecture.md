@@ -1,0 +1,48 @@
+- type:: architecture
+- created:: 2026-07-18
+- tags:: #architecture #esp32 #dehydrator
+-
+- ## High-level blocks
+-
+- ![System architecture diagram](../assets/architecture.png)
+- **Sense** → temp (air in / air out / tray), humidity, door, heater current (optional), ambient.
+- **Decide** → state machine + PID + recommendation heuristics ([[Control State Machine]] · [[PID and Climate Control]] · [[Recommendations Engine]]).
+- **Actuate** → heater(s) SSR/PWM, fan(s) PWM, buzzer, status LED.
+- **Present** → Soft-AP HTTP + WebSocket dashboard ([[Web AP Interface]]).
+- **Remember** → NVS prefs + LittleFS session logs ([[Stats Telemetry Logging]] · [[Data Model]]).
+-
+- ## Topology
+- ```
+-  [Trays + air path]
+-        ^
+-   fan  |  heater (SSR)
+-        v
+-   DHT/SHT + DS18B20 probes
+-        |
+-     ESP32 DevKit
+-     /    |    \
+-   AP   NVS   LittleFS
+-    |
+-  Phone browser (http://192.168.4.1)
+- ```
+-
+- ## Why ESP32
+- Built-in Wi‑Fi for AP mode (no extra module).
+- Enough RAM for async web + JSON telemetry.
+- ADC + PWM + 1-Wire + I²C for sensors.
+- Deep ecosystem (Arduino / ESP-IDF / PlatformIO).
+-
+- ## Control layers
+- L0 Hardware safeties: thermal fuse, fuse, door switch hardwired logic if possible.
+- L1 Firmware interlocks: sensor validity, max temp, max duty, heartbeat ([[Safety Interlocks]]).
+- L2 Climate loops: temperature PID, humidity-aware fan boost.
+- L3 Session automation: profile stages, auto-finish, cool-down.
+- L4 UX intelligence: warnings + recommendations (non-blocking unless severity=critical).
+-
+- ## Networking model
+- Default: Soft-AP only (`SSID: Dehydrator-XXXX`, open or WPA2).
+- Optional STA mode later (home Wi‑Fi) without blocking AP fallback — see [[Future Upgrades]].
+- All control local; no mandatory internet.
+-
+- ## Related
+- [[Firmware Architecture]] · [[Electrical Wiring]] · [[Pin Map ESP32]]

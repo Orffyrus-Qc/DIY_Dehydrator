@@ -1,0 +1,36 @@
+- type:: software
+- created:: 2026-07-18
+- tags:: #warnings #safety #ux
+-
+- ## Severity
+- `INFO` — FYI banner, no sound.
+- `WARN` — amber, soft beep once, automation continues with mitigations.
+- `CRITICAL` — red, beep, heater off, state FAULT.
+-
+- ## Rule catalog (automated evaluation 1 Hz)
+- `DOOR_OPEN` WARN — heater forced 0.
+- `SENSOR_STALE` CRITICAL — no valid T/RH.
+- `SENSOR_RANGE` CRITICAL — implausible values.
+- `OVERTEMP` CRITICAL — T ≥ T_max_abs.
+- `OVERTEMP_NEAR` WARN — within 3 °C of max.
+- `HEATER_NO_LOAD` WARN/CRIT — duty high, no current (if sensor).
+- `HEATER_STUCK_ON` CRITICAL — current without duty.
+- `GRADIENT_HIGH` WARN — |Ttray−Tair| large sustained → suggest fan/rearrange trays.
+- `RH_NOT_FALLING` WARN — after t_min/2, dRH/dt ~ 0 at high RH → check load/airflow.
+- `MAX_TIME` WARN — forcing finish path.
+- `POWER_RECOVER` INFO — boot after outage.
+- `PID_SATURATED` INFO — heater 100% long — underpowered or open door/leak.
+- `MEAT_TEMP_LOW` WARN — meat mode: T below `T_meat_min_c` past warn grace; heating hard.
+- `MEAT_TEMP_UNSAFE` CRITICAL — meat mode: below floor past hard grace; FAULT + food-safety abort.
+- `MEAT_SETPOINT_REJECT` INFO — user/API tried setpoint under floor.
+- `FINISH_RH_BOUNCE` INFO — finishing probe saw humidity rise; continuing dry.
+- `FINISH_READY` INFO — probe stable; entering cooldown.
+- `FINISH_MAX_CYCLES` WARN — rest/probe loop limit; forcing ready path.
+-
+- ## Presentation
+- Active list sorted severity.
+- Sticky CRITICAL until ack + clear.
+- History page last 50 events.
+-
+- ## Related
+- [[Safety Interlocks]] · [[Recommendations Engine]] · [[Failure Modes]]

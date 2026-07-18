@@ -1,0 +1,33 @@
+- type:: plan
+- created:: 2026-07-18
+- tags:: #firmware #plan #implementation
+-
+- ## Goal
+- Deliver max automation in vertical slices that stay safe.
+-
+- ## Sprint 1 — Safe skeleton
+- Pins, SSR/fan/buzzer, door → heater interlock.
+- Serial status only.
+- Hard T_max even with dummy sensor constant.
+-
+- ## Sprint 2 — Sense + PID
+- SHT + DS18B20, PID, PREHEAT/RUNNING/STOP.
+- No web yet.
+-
+- ## Sprint 3 — AP dashboard
+- Soft-AP, static UI, WebSocket telemetry, start/stop REST.
+-
+- ## Sprint 4 — Automation brain
+- Full state machine, profiles, finish criteria, logging.
+-
+- ## Sprint 5 — Intelligence layer
+- Warnings catalog, recommendations + apply, session history UI.
+-
+- ## Sprint 6 — Harden
+- Fault injection tests [[Test Plan]], calibration UI, energy estimate.
+-
+- ## Definition of done
+- Matches [[00 Overview]] success criteria + [[Build Checklist]] Done definition.
+-
+- ## Related
+- [[Firmware Architecture]] · [[Build Checklist]]

@@ -1,0 +1,24 @@
+- type:: design
+- created:: 2026-07-18
+- tags:: #power
+-
+- ## Domains
+- **Mains domain**: heater only (+ SSR load side).
+- **12 V domain**: fans (fused).
+- **5 V / 3.3 V domain**: ESP32 + sensors.
+-
+- ## Budget example (illustrative)
+- Heater 600 W @ 120 V ≈ 5 A → fuse 8–10 A class as designed.
+- Fans 12 V 0.5 A each.
+- ESP32 peak Wi‑Fi ~0.5 A on 5 V rail — use ≥2 A PSU.
+-
+- ## Brownout behavior
+- On ESP32 brownout: heaters must default **OFF** (SSR input idle = off).
+- On restore: do **not** auto-resume heater until state machine validates sensors + user/policy ([[Control State Machine]] `RECOVER`).
+-
+- ## Efficiency automation
+- PWM/SSR duty only as needed; fan curve raises with RH and during cool-down.
+- Optional “eco” profile caps max heater duty.
+-
+- ## Related
+- [[BOM Parts List]] · [[Safety Interlocks]]
