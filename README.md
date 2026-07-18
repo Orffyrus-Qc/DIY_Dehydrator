@@ -25,7 +25,7 @@
 </p>
 
 <p align="center">
-  <img src="assets/warnings/falling-cow-award.gif" alt="Falling cow award" width="280">
+  <img src="assets/warnings/falling-cow-award.png" alt="Falling cow award" width="280">
 </p>
 
 ```text
