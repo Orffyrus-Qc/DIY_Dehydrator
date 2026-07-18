@@ -20,12 +20,9 @@
 
 # 🚨🚨🚨 YOU HAVE ENTERED A FALLING COW ZONE 🚨🚨🚨
 
+<!-- Same-size diamonds, white exterior removed, dark plate (GitHub page is white so raw transparency still looked white) -->
 <p align="center">
-  <img src="assets/warnings/falling_cow_zone1.jpg" alt="FALLING COW ZONE — under construction" width="720">
-</p>
-
-<p align="center">
-  <img src="assets/warnings/falling-cow-award.png" alt="Falling cow award" width="280">
+  <img src="assets/warnings/falling_cow_pair_banner.jpg" alt="FALLING COW ZONE — under construction / untested" width="480">
 </p>
 
 ```text
